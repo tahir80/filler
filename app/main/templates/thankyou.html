@@ -1,0 +1,84 @@
+{% extends 'layout_surveys.html' %}{% block content %}
+<br>
+<div class="bot_or_human">
+  <div class="alert alert-secondary" role="alert">
+    Did you just interact with chatbot powered by real humans, artificial intelligence or mix of both?
+  </div>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Real Humans">
+    <label class="form-check-label" for="inlineRadio1">Real Humans</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Artificial Intelligence">
+    <label class="form-check-label" for="inlineRadio2">Artificial Intelligence</label>
+  </div>
+
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="Hybrid (Combining AI and humans)">
+    <label class="form-check-label" for="inlineRadio3">Hybrid (Combining artificial intelligence and humans)</label>
+  </div>
+
+</div>
+
+
+<div class="alert alert-success" role="alert" id="thankyou">
+  <div class="text-center">
+    <h4 class="alert-heading">Thank you so much!</h4>
+  </div>
+
+  <p>Thank you for taking the time to complete this study. We truly value the information you have provided.
+    <hr> We want to inform you that the chatbot you have just interacted with was not supported by a hybrid intelligence (combining the power of AI and humans). Rather the responses of the chatbot were canned or predefined. </p>
+  <p class="mb-0">This was part of the experiment to conceal this information from participants to better control some variables. We appreciate your time, effort and understanding!</p>
+  <div class="text-center">
+    <a href="{{completion_url}}" class="btn btn-primary">Redirect me to Prolific</a>
+  </div>
+</div>
+
+
+
+
+<script>
+  function gup(name) {
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regexS = "[\\?&]" + name + "=([^&#]*)";
+    var regex = new RegExp(regexS);
+    var results = regex.exec(window.location.href);
+    if (results == null)
+      return "";
+    else
+      return unescape(results[1]);
+  }
+
+
+
+
+  $(document).ready(function() {
+    $('#thankyou').hide();
+  });
+
+
+  $("input[name='inlineRadioOptions']").change(function() {
+    console.log($("input[name='inlineRadioOptions']:checked").val());
+
+    $.ajax({
+      type: "POST",
+      url: "/bot",
+      data: JSON.stringify({
+        question: "bot, human or hybrid?",
+        message: $("input[name='inlineRadioOptions']:checked").val(),
+        workerId: gup("workerId"),
+        task_id: gup("task_id")
+      }),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      success: function(data) {
+        console.log(JSON.stringify(data));
+      }
+    });
+
+    $('#thankyou').show();
+    $('.bot_or_human').hide();
+
+  });
+</script>
+{% endblock %}

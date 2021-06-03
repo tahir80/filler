@@ -1,0 +1,693 @@
+{% extends 'layout_surveys.html' %}{% block content %}
+
+<!-- <div class="alert alert-success alert-dismissible">
+   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+   <strong>Success!</strong> This alert box could indicate a successful or positive action.
+ </div> -->
+<br>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <p>Please fill out all the entries carefully on this form. You will see some red-colored error messages alongside the fields if you fail to fill out the required fields. </p>
+  <p>Please hit the submit button at the bottom to submit this form. You will then be redirected to completion URL on Prolific.</p>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form action="" method="post" novalidate>
+  {{ form.hidden_tag() }}
+
+  <!-- {% if form.errors %}
+{{ form.errors }}
+{% endif %} -->
+  <!-- {{ form.csrf_token }} -->
+
+  <div class="container">
+    <div class="row p-3 mb-2 bg-light text-dark">
+      <div class="col-sm-9">
+        <br>
+        <p>
+          How did you perceive the response time from {{botname}} to be during your conversation? Indicate your estimate in seconds by simply entering the number of seconds
+          <!-- {{form.Perceived_waiting_time.label }} -->
+        </p>
+      </div>
+
+      <div class="col-sm-3">
+        <br>
+        <p>
+          {{ form.Perceived_waiting_time(size=8, class_='form-control')}}{% for error in form.Perceived_waiting_time.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %}
+        </p>
+      </div>
+    </div>
+    <div class="row p-3 mb-2 bg-light text-dark">
+      <div class="col-sm-12">
+        How would you best describe the response time from {{botname}} during your conversation? {% for error in form.cognitive.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %}
+      </div>
+        <!-- {{ form.cognitive(size=10) }} -->
+      <div class="col-sm-12">
+        <table class="table">
+          <tr>
+            {% for radiobutton in form.cognitive %}
+            <td>
+              {{ radiobutton}}{{radiobutton.label }}
+            </td>
+
+            {% endfor %}
+          </tr>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="p-3 mb-2 bg-secondary text-white" ">
+      <label for="affective ">To what extent did you feel the emotions listed below while you waited for the responses from {{botname}}?  <b>(1: completely disagree, 5: completely agree)</b></label>
+    </div>
+
+    <div class="row ">
+
+      <table class="table table-striped">
+        <tr>
+          <td> {{ form.irritation.label }} {% for error in form.irritation.errors %}
+            <span style="color: red; ">[{{ error }}]</span> {% endfor %}</td>
+          {% for radiobutton in form.irritation %}
+          <td>
+
+            {{ radiobutton }} {{ radiobutton.label }}
+
+          </td>
+          {% endfor %}
+
+        </tr>
+
+        <tr>
+          <td> {{ form.fairness.label }} {% for error in form.fairness.errors %}
+            <span style="color: red; ">[{{ error }}]</span> {% endfor %}</td>
+          {% for radiobutton in form.fairness %}
+          <td>
+
+            {{ radiobutton }} {{ radiobutton.label }}
+
+          </td>
+          {% endfor %}
+
+        </tr>
+
+
+        <tr>
+          <td> {{ form.annoyance.label }} {% for error in form.annoyance.errors %}
+            <span style="color: red; ">[{{ error }}]</span> {% endfor %}</td>
+          {% for radiobutton in form.annoyance %}
+          <td>
+
+            {{ radiobutton }} {{ radiobutton.label }}
+
+          </td>
+          {% endfor %}
+
+        </tr>
+
+        <tr>
+          <td> {{ form.boredom.label }} {% for error in form.boredom.errors %}
+            <span style="color: red; ">[{{ error }}]</span> {% endfor %}</td>
+          {% for radiobutton in form.boredom %}
+          <td>
+
+            {{ radiobutton }} {{ radiobutton.label }}
+
+          </td>
+          {% endfor %}
+
+        </tr>
+
+        <tr>
+          <td> {{ form.stress.label }} {% for error in form.stress.errors %}
+            <span style="color: red; ">[{{ error }}]</span> {% endfor %}</td>
+          {% for radiobutton in form.stress %}
+          <td>
+
+            {{ radiobutton }} {{ radiobutton.label }}
+
+          </td>
+          {% endfor %}
+
+        </tr>
+      </table>
+
+    </div>
+
+    <div class="p-3 mb-2 bg-secondary text-white "">
+      <label for="cogntive-absorption_partone"><b>Please answer the following questions carefully. 1 indicates "strongly disagree" whereas 7 indicates "strongly agree"</b></label>
+    </div>
+    <table class="table table-condensed">
+
+      <tr class="table-light">
+        <td> {{ form.TD1.label }} {% for error in form.TD1.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %} </td>
+
+        {% for radiobutton in form.TD1 %}
+        <td align="center " class="fit_cell "> {{radiobutton}}{{radiobutton.label}}</td> {% endfor %}
+      </tr>
+
+      <tr class="table-light">
+        <td> {{ form.TD2.label }} {% for error in form.TD2.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %} </td>
+
+        {% for radiobutton in form.TD2 %}
+        <td align="center " class="fit_cell "> {{radiobutton}}{{radiobutton.label}}</td> {% endfor %}
+      </tr>
+
+      <tr class="table-light">
+        <td> {{ form.TD3.label }} {% for error in form.TD3.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %} </td>
+
+        {% for radiobutton in form.TD3 %}
+        <td align="center " class="fit_cell "> {{radiobutton}}{{radiobutton.label}}</td> {% endfor %}
+      </tr>
+
+      <tr class="table-light">
+        <td> {{ form.TD4.label }} {% for error in form.TD4.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %} </td>
+
+        {% for radiobutton in form.TD4 %}
+        <td align="center " class="fit_cell "> {{radiobutton}}{{radiobutton.label}}</td> {% endfor %}
+      </tr>
+
+      <tr class="table-light">
+        <td> {{ form.TD5.label }} {% for error in form.TD5.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %} </td>
+
+        {% for radiobutton in form.TD5 %}
+        <td align="center " class="fit_cell "> {{radiobutton}}{{radiobutton.label}}</td> {% endfor %}
+      </tr>
+
+      <tr class="table-secondary">
+        <td> {{ form.CO1.label }} {% for error in form.CO1.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %} </td>
+
+        {% for radiobutton in form.CO1 %}
+        <td align="center " class="fit_cell "> {{radiobutton}}{{radiobutton.label}}</td> {% endfor %}
+      </tr>
+
+      <tr class="table-secondary">
+        <td> {{ form.CO2.label }} {% for error in form.CO2.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %} </td>
+
+        {% for radiobutton in form.CO2 %}
+        <td align="center " class="fit_cell "> {{radiobutton}}{{radiobutton.label}}</td> {% endfor %}
+      </tr>
+
+      <tr class="table-secondary">
+        <td> {{ form.CO3.label }} {% for error in form.CO3.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %} </td>
+
+        {% for radiobutton in form.CO3 %}
+        <td align="center " class="fit_cell "> {{radiobutton}}{{radiobutton.label}}</td> {% endfor %}
+      </tr>
+
+      <tr class="table-light">
+        <td> {{ form.CU1.label }} {% for error in form.CU1.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %} </td>
+
+        {% for radiobutton in form.CU1 %}
+        <td align="center " class="fit_cell "> {{radiobutton}}{{radiobutton.label}}</td> {% endfor %}
+      </tr>
+
+      <tr class="table-light">
+        <td> {{ form.CU2.label }} {% for error in form.CU2.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %} </td>
+
+        {% for radiobutton in form.CU2 %}
+        <td align="center " class="fit_cell "> {{radiobutton}}{{radiobutton.label}}</td> {% endfor %}
+      </tr>
+
+      <tr class="table-light">
+        <td> {{ form.CU3.label }} {% for error in form.CU3.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %} </td>
+
+        {% for radiobutton in form.CU3 %}
+        <td align="center " class="fit_cell "> {{radiobutton}}{{radiobutton.label}}</td> {% endfor %}
+      </tr>
+
+
+      <tr class="table-secondary">
+        <td> {{ form.PU1.label }} {% for error in form.PU1.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %} </td>
+
+        {% for radiobutton in form.PU1 %}
+        <td align="center " class="fit_cell "> {{radiobutton}}{{radiobutton.label}}</td> {% endfor %}
+      </tr>
+
+      <tr class="table-secondary">
+        <td> {{ form.PU2.label }} {% for error in form.PU2.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %} </td>
+
+        {% for radiobutton in form.PU2 %}
+        <td align="center " class="fit_cell "> {{radiobutton}}{{radiobutton.label}}</td> {% endfor %}
+      </tr>
+
+      <tr class="table-secondary">
+        <td> {{ form.PU3.label }} {% for error in form.PU3.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %} </td>
+
+        {% for radiobutton in form.PU3 %}
+        <td align="center " class="fit_cell "> {{radiobutton}}{{radiobutton.label}}</td> {% endfor %}
+      </tr>
+
+
+      <tr class="table-secondary">
+        <td> {{ form.PU4.label }} {% for error in form.PU4.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %} </td>
+
+        {% for radiobutton in form.PU4 %}
+        <td align="center " class="fit_cell "> {{radiobutton}}{{radiobutton.label}}</td> {% endfor %}
+      </tr>
+
+
+
+    </table>
+
+
+
+    <div class="row ">
+    <div class="col-sm-12 " align="center ">
+      <div class="p-3 mb-2 bg-secondary text-white " ">
+          <label for="UEQ"><b>Decide as spontaneously as possible which of the following conflicting terms better describes the {{botname}}. There is no "right" or "wrong" answer. Only your personal opinion counts!</b></label>
+        </div>
+        <table class="table table-striped ">
+          <tbody>
+            <tr>
+              <td align="right ">{% for error in form.UEQ1.errors %}
+                <span style="color: red; ">[{{ error }}]</span> {% endfor %} obstructive </td>
+
+              <td align="center " class="fit_cell ">
+                {% for radiobutton in form.UEQ1 %}
+                <label class="radio-inline ">{{ radiobutton }}</label> {% endfor %}
+
+              </td>
+              <td align="left ">supportive</td>
+            </tr>
+            <tr>
+              <td align="right ">{% for error in form.UEQ2.errors %}
+                <span style="color: red; ">[{{ error }}]</span> {% endfor %} complicated</td>
+              <td align="center " class="fit_cell ">
+                {% for radiobutton in form.UEQ2 %}
+                <label class="radio-inline ">{{ radiobutton }}</label> {% endfor %}
+              </td>
+              <td align="left ">easy</td>
+            </tr>
+            <tr>
+              <td align="right "> {% for error in form.UEQ3.errors %}
+                <span style="color: red; ">[{{ error }}]</span> {% endfor %}inefficient</td>
+              <td align="center " class="fit_cell ">
+                {% for radiobutton in form.UEQ3 %}
+                <label class="radio-inline ">{{ radiobutton }}</label> {% endfor %}
+              </td>
+              <td align="left ">efficient</td>
+            </tr>
+            <tr>
+              <td align="right ">{% for error in form.UEQ4.errors %}
+                <span style="color: red; ">[{{ error }}]</span> {% endfor %} confusing</td>
+              <td align="center " class="fit_cell ">
+                {% for radiobutton in form.UEQ4 %}
+                <label class="radio-inline ">{{ radiobutton }}</label> {% endfor %}
+              </td>
+              <td align="left ">clear</td>
+            </tr>
+            <tr>
+              <td align="right ">{% for error in form.UEQ5.errors %}
+                <span style="color: red; ">[{{ error }}]</span> {% endfor %} boring</td>
+              <td align="center " class="fit_cell ">
+                {% for radiobutton in form.UEQ5 %}
+                <label class="radio-inline ">{{ radiobutton }}</label> {% endfor %}
+              </td>
+              <td align="left ">exciting</td>
+            </tr>
+            <tr>
+              <td align="right ">{% for error in form.UEQ6.errors %}
+                <span style="color: red; ">[{{ error }}]</span> {% endfor %} not interesting</td>
+              <td align="center " class="fit_cell ">
+                {% for radiobutton in form.UEQ6 %}
+                <label class="radio-inline ">{{ radiobutton }}</label> {% endfor %}
+              </td>
+              <td align="left ">interesting</td>
+            </tr>
+            <tr>
+              <td align="right "> {% for error in form.UEQ7.errors %}
+                <span style="color: red; ">[{{ error }}]</span> {% endfor %} conventional</td>
+              <td align="center " class="fit_cell ">
+                {% for radiobutton in form.UEQ7 %}
+                <label class="radio-inline ">{{ radiobutton }}</label> {% endfor %}
+              </td>
+              <td align="left ">inventive</td>
+            </tr>
+            <tr>
+              <td align="right ">{% for error in form.UEQ8.errors %}
+                <span style="color: red; ">[{{ error }}]</span> {% endfor %} usual</td>
+              <td align="center " class="fit_cell ">
+                {% for radiobutton in form.UEQ8 %}
+                <label class="radio-inline ">{{ radiobutton }}</label> {% endfor %}
+              </td>
+              <td align="left ">leading edge</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <div class="row ">
+
+
+      <div class="col-sm ">
+        <div class="p-3 mb-2 bg-secondary text-white">
+          <label for="chatbot_exp"><b>Please answer the following questions</b></label>
+        </div>
+        <br> {{ form.exp1.label }} <b>(1: completely disagree, 7: completely agree)</b><br>{% for error in form.exp1.errors %}
+        <span style="color: red; ">[{{ error }}]</span> {% endfor %}
+        <table class="table ">
+          <tr>
+            {% for radiobutton in form.exp1 %}
+            <td style="padding: 15px; ">
+              {{ radiobutton }} {{ radiobutton.label }}
+            </td>
+            {% endfor %}
+          </tr>
+
+        </table>
+
+      </div>
+
+    </div>
+
+
+    <div class="row ">
+
+      <div class="col-sm ">
+        <br> (8) {{ form.exp2.label }} <b>(1: completely disagree, 7: completely agree)</b><br>{% for error in form.exp2.errors %}
+        <span style="color: red; ">[{{ error }}]</span> {% endfor %}
+        <table class="table ">
+          <tr>
+            {% for radiobutton in form.exp2 %}
+            <td style="padding: 15px; ">
+              {{ radiobutton }} {{ radiobutton.label }}
+            </td>
+            {% endfor %}
+          </tr>
+
+        </table>
+
+      </div>
+
+    </div>
+
+    <div class="row ">
+
+      <div class="col-sm ">
+        <br> (8) {{ form.social_o_1.label }} <b>(1: completely disagree, 7: completely agree)</b><br>{% for error in form.social_o_1.errors %}
+        <span style="color: red; ">[{{ error }}]</span> {% endfor %}
+        <table class="table ">
+          <tr>
+            {% for radiobutton in form.social_o_1 %}
+            <td style="padding: 15px; ">
+              {{ radiobutton }} {{ radiobutton.label }}
+            </td>
+            {% endfor %}
+          </tr>
+
+        </table>
+
+      </div>
+
+    </div>
+
+
+    <div class="row ">
+
+      <div class="col-sm ">
+        <br> {{ form.social_o_2.label }} <b>(1: completely disagree, 7: completely agree)</b><br>{% for error in form.social_o_2.errors %}
+        <span style="color: red; ">[{{ error }}]</span> {% endfor %}
+        <table class="table ">
+          <tr>
+            {% for radiobutton in form.social_o_2 %}
+            <td style="padding: 15px; ">
+              {{ radiobutton }} {{ radiobutton.label }}
+            </td>
+            {% endfor %}
+          </tr>
+
+        </table>
+
+      </div>
+
+    </div>
+
+    <div class="p-3 mb-2 bg-secondary text-white">
+      <label for="cogntive-absorption"></label>
+    </div>
+    <table class="table table-condensed">
+      <tr class="table-secondary">
+        <td> {{ form.FI1.label }} {% for error in form.FI1.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %} </td>
+
+        {% for radiobutton in form.FI1 %}
+        <td align="center " class="fit_cell "> {{radiobutton}}{{radiobutton.label}}</td> {% endfor %}
+      </tr>
+
+      <tr class="table-secondary">
+        <td> {{ form.FI2.label }} {% for error in form.FI2.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %} </td>
+
+        {% for radiobutton in form.FI2 %}
+        <td align="center " class="fit_cell "> {{radiobutton}}{{radiobutton.label}}</td> {% endfor %}
+      </tr>
+
+      <tr class="table-secondary">
+        <td> {{ form.FI3.label }} {% for error in form.FI3.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %} </td>
+
+        {% for radiobutton in form.FI3 %}
+        <td align="center " class="fit_cell "> {{radiobutton}}{{radiobutton.label}}</td> {% endfor %}
+      </tr>
+
+      <tr class="table-secondary">
+        <td> {{ form.FI4.label }} {% for error in form.FI4.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %} </td>
+
+        {% for radiobutton in form.FI4 %}
+        <td align="center " class="fit_cell "> {{radiobutton}}{{radiobutton.label}}</td> {% endfor %}
+      </tr>
+
+
+      <tr class="table-light">
+        <td> {{ form.HE1.label }} {% for error in form.HE1.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %} </td>
+
+        {% for radiobutton in form.HE1 %}
+        <td align="center " class="fit_cell "> {{radiobutton}}{{radiobutton.label}}</td> {% endfor %}
+      </tr>
+
+      <tr class="table-light">
+        <td> {{ form.HE2.label }} {% for error in form.HE2.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %} </td>
+
+        {% for radiobutton in form.HE2 %}
+        <td align="center " class="fit_cell "> {{radiobutton}}{{radiobutton.label}}</td> {% endfor %}
+      </tr>
+
+      <tr class="table-light">
+        <td> {{ form.HE3.label }} {% for error in form.HE3.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %} </td>
+
+        {% for radiobutton in form.HE3 %}
+        <td align="center " class="fit_cell "> {{radiobutton}}{{radiobutton.label}}</td> {% endfor %}
+      </tr>
+
+      <tr class="table-light">
+        <td> {{ form.HE4.label }} {% for error in form.HE4.errors %}
+          <span style="color: red;">[{{ error }}]</span> {% endfor %} </td>
+
+        {% for radiobutton in form.HE4 %}
+        <td align="center " class="fit_cell "> {{radiobutton}}{{radiobutton.label}}</td> {% endfor %}
+      </tr>
+
+    </table>
+
+
+
+        <div class="row">
+
+          <div class="col-sm">
+            <div class="p-3 mb-2 bg-secondary text-white" ">
+              <label for="satisfaction "><b>{{ form.satisfaction.label }} on a 10-point scale ranging from (1) 'very dissatisfied'  to (10) 'very satisfied'. </b></label>
+            </div>
+
+          <!-- (5) Indicate your overall satisfaction with the service provided by {{botname}}. <b>(1: Very dissatisfied, 10: very satisfied)</b> -->
+          <!-- (5) How did you perceive the response quality provided by {{botname}}. <b>(1: Very low quality, 10: very high quality)</b> -->
+          {% for error in form.satisfaction.errors %}
+            <span style="color: red; ">[{{ error }}]</span> {% endfor %}
+            <table>
+              <tr>
+                {% for radiobutton in form.satisfaction %}
+                <td style="padding: 20px; ">
+                  {{ radiobutton }} {{ radiobutton.label }}
+                </td>
+                {% endfor %}
+              </tr>
+
+            </table>
+
+          </div>
+
+        </div>
+
+
+    <div class="row ">
+
+      <div class="col-sm-12">
+        <div class="p-3 mb-2 bg-secondary text-white" ">
+          <label for="feedback "><b>Please share any additional thoughts, remarks, or feedback that you may have regarding your experience interacting with {{botname}}. </b></label>
+        </div>
+        <!-- (6) {{ form.feedback.label }} -->
+
+
+        {{ form.feedback(class_='form-control') }}{% for error in form.feedback.errors %}
+        <span style="color: red; ">[{{ error }}]</span> {% endfor %}
+      </div>
+
+
+    </div>
+
+
+<div class="row ">
+  <div class="col-sm ">
+    <br>
+    <div class="p-3 mb-2 bg-secondary text-white" ">
+      <label for="feedback "><b>{{ form.education.label }} </b></label>
+    </div>
+    {% for error in form.education.errors %}
+    <span style="color: red; ">[{{ error }}]</span> {% endfor %} {{ form.education }}
+  </div>
+
+</div>
+
+
+
+    <div class="row ">
+      <div class="col-lg-4 ">
+
+      </div>
+      <div class="col-lg-4 ">
+        <br> {{ form.submit() }}
+      </div>
+      <div class="col-lg-4 ">
+
+      </div>
+
+    </div>
+  </div>
+</form>
+
+<script>
+  function gup(name) {
+    name = name.replace(/[\[]/, "\\\[ ").replace(/[\]]/, "\\\] ");
+    var regexS = "[\\?&] " + name + "=([^&#]*) ";
+    var regex = new RegExp(regexS);
+    var results = regex.exec(window.location.href);
+    if (results == null)
+      return " ";
+    else
+      return unescape(results[1]);
+  }
+
+
+  $(document).ready(function(){
+    document.body.innerHTML = document.body.innerHTML.replace(/CPCS/g, '{{botname}}');
+
+    // var label_filler = $("label[for=c ogntive-absorption] ").text();
+
+    if(gup("ft ") === "CF ") {
+        $("label[for=c ogntive-absorption] ").html("In the questions that follows, the word "
+                                              +"<span class='lead'><span class='badge badge-danger'>filler</span></span> refers to the <b>holding message(s) "
+                                              +"(e.g. <i>\'I will get back to you shortly, thank you for your patience…\'</i>) that was/were shown to you while "
+                                              +"you were waiting for the answer(s) from {{botname}} (1 indicates 'strongly disagree' whereas 7 indicates 'strongly agree')");
+    }
+
+    else if(gup("ft") === "dots") {
+        $("label[for = cogntive-absorption]").html("In the questions that follows, the word "
+                                              +"<span class='lead'><span class='badge badge-danger'>filler</span></span> refers to the "
+                                              +"three animated ellipses (...) that were shown while you were waiting for the answer(s) from {{botname}}"
+                                              +" (1 indicates 'strongly disagree' whereas 7 indicates 'strongly agree')");
+    }
+
+
+    else if(gup("ft") === "progress") {
+        $("label[for = cogntive-absorption]").html("In the questions that follows, the word "
+                                              +"<span class='lead'><span class='badge badge-danger'>filler</span></span> refers to the "
+                                              +"Progress bar ( ███▒▒▒▒▒▒▒ )"
+                                              +" that was shown while you were waiting for the answer(s) from {{botname}}"
+                                              +" (1 indicates 'strongly disagree' whereas 7 indicates 'strongly agree')");
+    }
+
+    else if(gup("ft") === "nature" || gup("ft") === "manmade") {
+        $("label[for = cogntive-absorption]").html("In the questions that follows, the word "
+                                              +"<span class='lead'><span class='badge badge-danger'>filler</span></span> refers to the "
+                                              +"video(s) that was/were shown while you were waiting for the answer(s) from {{botname}}"
+                                              +" (1 indicates 'strongly disagree' whereas 7 indicates 'strongly agree')");
+    }
+
+    else if(gup("ft") === "box") {
+        $("label[for = cogntive-absorption]").html("In the questions that follows, the word "
+                                              +"<span class='lead'><span class='badge badge-danger'>filler</span></span> refers to the "
+                                              +"box breathing animation(s) that was/were shown while you were waiting for the answer(s) from {{botname}}"
+                                              +" (1 indicates 'strongly disagree' whereas 7 indicates 'strongly agree')");
+    }
+
+    else if(gup("ft") === "micro") {
+        $("label[for = cogntive-absorption]").html("In the questions that follows, the word "
+                                              +"<span class='lead'><span class='badge badge-danger'>filler</span></span> refers to the "
+                                              +"micro-task(s) that was/were presented to you to solve while you were waiting for the answer(s) from {{botname}}"
+                                              +" (1 indicates 'strongly disagree' whereas 7 indicates 'strongly agree')");
+    }
+
+    else {
+        $("label[for = cogntive-absorption]").html("Please answer the following questions (1 indicates 'strongly disagree' whereas 7 indicates 'strongly agree')");
+
+        // -------------------------------------------focused immersion --------------------------------------------------------------------
+        document.body.innerHTML = document.body.innerHTML.replace(/I was intensely absorbed in a filler while waiting to see the results./g,
+                                                                   'While waiting to see the results, I was intensely absorbed.');
+
+        document.body.innerHTML = document.body.innerHTML.replace(/My attention was focused on a filler while I was waiting to see the results./g,
+                                                                  'While waiting to see the results, my attention was focused.');
+
+        document.body.innerHTML = document.body.innerHTML.replace(/I concentrated fully on a filler while waiting to see the results./g,
+                                                                  'While waiting to see the results, I was fully concentrated.');
+
+        document.body.innerHTML = document.body.innerHTML.replace(/I was deeply immersed in a filler while waiting to see the results./g,
+                                                                  'While waiting to see the results, I was deeply immersed.');
+       //-----------------------------------------------------------------------------------------------------------------------------------
+
+       // -------------------------------------------Heightened Enjoyment --------------------------------------------------------------------
+       document.body.innerHTML = document.body.innerHTML.replace(/Waiting for the requested results in the filler was pleasant/g,
+                                                                  'Waiting for the requested results was pleasant');
+
+       document.body.innerHTML = document.body.innerHTML.replace(/Waiting for the requested results in the filler was enjoyable/g,
+                                                                 'Waiting for the requested results was enjoyable');
+
+       document.body.innerHTML = document.body.innerHTML.replace(/Waiting for the requested results in the filler was fun/g,
+                                                                 'Waiting for the requested results was fun');
+
+       document.body.innerHTML = document.body.innerHTML.replace(/Waiting for the requested results in the filler was exciting/g,
+                                                                 'Waiting for the requested results was exciting');
+      //-----------------------------------------------------------------------------------------------------------------------------------
+
+
+    }
+
+
+
+    $("label[for = cogntive-absorption]").css("font-weight","Bold");
+
+});
+
+</script>
+{% endblock %}

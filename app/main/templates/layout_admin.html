@@ -1,0 +1,116 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+{# head #} {% block head %}
+
+<head>
+  <title> ADMIN </title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale = 1">
+
+  <title></title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+  integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+  crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+  integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+  crossorigin="anonymous"></script>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+  integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+  crossorigin="anonymous"></script>
+
+  <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
+  <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
+  <!--  Google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Sansita" rel="stylesheet">
+
+  <!-- General CSS -->
+  <!-- <link rel="stylesheet" href="{{url_for('static', filename='css/style1.css')}}" > -->
+
+  <style>
+    input[type=button],
+    input[type=submit],
+    input[type=reset] {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 16px 32px;
+      text-decoration: none;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+
+    .grayout {
+      opacity: 0.6;
+      /* Real browsers */
+      filter: alpha(opacity=60);
+      /* MSIE */
+    }
+  </style>
+
+</head>
+{% endblock head %} {# body #} {% block body %}
+
+<body>
+  <div class="wrapper">
+    {# navigation bar #} {% block navbar %}
+    <nav class="navbar navbar-inverse">
+      <div class="container">
+
+        <a class="navbar navbar-text" href="{{ url_for('main.prolific_admin') }}">
+          <h3 class="title"> DELAY PROJECT </h3>
+        </a>
+        <ul class="nav navbar-nav pull-right">
+          <li><a href="{{ url_for('main.prolific_admin') }}"> Home </a></li>
+          <li><a href="{{ url_for('authentication.register_user') }}"> Register </a></li>
+          <li> {% if current_user.is_authenticated %}
+            <a href="{{ url_for('authentication.log_out_user') }}"> SignOut </a> {% else %}
+            <a href="{{ url_for('authentication.do_the_login') }}"> SignIn </a> {% endif %}
+          </li>
+          <li>
+            <a href="#">
+                                {% if current_user.is_authenticated %}
+                                    Logged-In as <b style="color: deeppink"> {{ current_user.user_name.title() }} </b>
+                                {% else %}
+                                    Not Logged-In
+                                {% endif %}
+                            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    {% endblock navbar %} {# flash messaging #} {% for message in get_flashed_messages() %}
+    <div class=" container alert alert-info">
+      <button type="button" class="close" data-dismiss="alert"></button> {{ message }}
+    </div>
+    {% endfor %} {# empty block for custom content #} {% block content %} {% endblock content %} {# footer #}
+    <!-- {% block footer %}
+
+        {% endblock footer %} -->
+
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      $('#complexity-1').attr('checked', true);
+      $('#quality-0').attr('checked', true);
+
+      $('.complexity').addClass("grayout");
+      $('.quality').addClass("grayout");
+
+    });
+  </script>
+</body>
+{% endblock body %}
+
+</html>
